@@ -49,8 +49,10 @@ def monitor_instances():
 
             for vm in running_vms:
                 lifetime_minutes = (now - vm.created_at).total_seconds() / 60
+                print(f"[MONITOR] VM {vm.id}: lifetime={lifetime_minutes:.2f} min, limit={vm.max_runtime}")
 
                 if vm.max_runtime and lifetime_minutes >= vm.max_runtime:
+                    print(f"[MONITOR] Stopping VM {vm.id}")
                     qemu_manager.stop_vm(vm.pid)
                     vm.status = "expired"
 
@@ -60,8 +62,7 @@ def monitor_instances():
         finally:
             db.close()
 
-        time.sleep(30)
-
+        time.sleep(10)
 
 @app.on_event("startup")
 def start_monitor():
