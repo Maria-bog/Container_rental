@@ -26,6 +26,7 @@ class InstanceResponse(BaseModel):
     max_runtime: int
     network_limit: int
     created_at: datetime
+    image_path: Optional[str] = None
     
     class Config:
         orm_mode = True 

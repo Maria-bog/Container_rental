@@ -19,7 +19,7 @@ class Instance(Base):
     
     container_id = Column(String, nullable=True)  # ID контейнера от Docker
     pid = Column(Integer, nullable=True)  # PID процесса QEMU (для vms)
-    
+    image_path = Column(String, nullable=True)
     max_runtime = Column(Integer, default=60)  # в минутах
     network_limit = Column(Integer, default=500)  # в MB
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
